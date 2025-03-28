@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ project_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+    async function loadEstablecimientos() {
+        const rubroSelect = document.getElementById('rubro');
+        const rubroValue = rubroSelect.value;
+        const formData = new FormData();
+        formData.append('rubro', rubroValue);
+
+        const response = await fetch('/get_establecimientos', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        const establecimientoSelect = document.getElementById('establecimiento');
+        establecimientoSelect.innerHTML = '';
+
+        // Opción "Todos"
+        const optTodos = document.createElement('option');
+        optTodos.value = "Todos";
+        optTodos.text = "Todos";
+        establecimientoSelect.appendChild(optTodos);
+
+        data.establecimientos.forEach(est => {
+            const option = document.createElement('option');
+            option.value = est;
+            option.text = est;
+            establecimientoSelect.appendChild(option);
+        });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        loadEstablecimientos();
+    });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo de la aplicación -->
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Simplificate Logo">
+            <em class="subtitle">Encuentra todas las promociones, en un solo lugar</em>
+        </div>
+        <form action="{{ url_for('resultados') }}" method="post">
+            <label for="banco_billetera">Banco/Billetera:</label>
+            <select name="banco_billetera" id="banco_billetera">
+                <option value="Todos">Todos</option>
+                {% for banco in bancos %}
+                    <option value="{{ banco }}">{{ banco }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="rubro">Rubro:</label>
+            <select name="rubro" id="rubro" onchange="loadEstablecimientos()">
+                <option value="Todos">Todos</option>
+                {% for r in rubros %}
+                    <option value="{{ r }}">{{ r }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="establecimiento">Establecimiento:</label>
+            <select name="establecimiento" id="establecimiento">
+                <!-- Se llena dinámicamente con JS -->
+            </select>
+
+            <label for="dia">Día:</label>
+            <select name="dia" id="dia">
+                <option value="Todos">Todos</option>
+                {% for d in dias %}
+                    <option value="{{ d }}">{{ d }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn">Buscar promociones</button>
+        </form>
+    </div>
+
+    <!-- Marca de agua en la esquina inferior derecha -->
+    <div class="watermark">
+        Este es un trabajo realizado por Sergio Grimaudo en el marco del seminario
+        "Gestión del Desarrollo Tecnológico" de la Carrera de Ciencia Política de la UBA
+        simplificate.uba@gmail.com.ar
+    </div>
+</body>
+</html>
+
+
+
+

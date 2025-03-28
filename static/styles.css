@@ -1,0 +1,213 @@
+/* --- Estilos globales --- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+/* --- Logo de la aplicación --- */
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.logo-container img {
+    display: block;
+    margin: 0 auto 10px; /* Centrado + espacio debajo */
+    max-width: 200px;
+    height: auto;
+}
+.subtitle {
+    color: #aaa;         /* Gris claro */
+    display: block;
+    font-style: italic;  /* Cursiva */
+}
+
+/* --- Formulario de filtros (index.html) --- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+}
+
+select, button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* --- Botón flotante "Ir al final" (results.html) --- */
+#floatBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+#floatBtn:hover {
+    background-color: #0056b3;
+}
+
+/* --- Layout en grid para la tarjeta de promoción (results.html) --- */
+.promo-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 10px;
+    background-color: #e9ecef;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+/* Fila 1 */
+.banco-left {
+    grid-column: 1 / 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+}
+.banco-left img {
+    max-width: 80px;
+    height: auto;
+}
+.rubro-top {
+    grid-column: 2 / 3;
+    grid-row: 1;
+    text-align: center;
+    font-size: 1.2rem;
+    align-self: center;
+}
+.descuento-right {
+    grid-column: 3 / 4;
+    grid-row: 1;
+    text-align: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    align-self: center;
+}
+
+/* Fila 2 */
+.logo-center {
+    grid-column: 2 / 3;
+    grid-row: 2;
+    text-align: center;
+}
+.logo-center img {
+    max-width: 80px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+/* Fila 3 */
+.dias-center {
+    grid-column: 2 / 3;
+    grid-row: 3;
+    text-align: center;
+}
+
+/* Fila 4 */
+.footer-left {
+    grid-column: 1 / 2;
+    grid-row: 4;
+    align-self: center;
+    font-size: 0.9rem;
+}
+.footer-center {
+    grid-column: 2 / 3;
+    grid-row: 4;
+    text-align: center;
+    align-self: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.footer-right {
+    grid-column: 3 / 4;
+    grid-row: 4;
+    text-align: right;
+    align-self: center;
+    font-size: 0.9rem;
+}
+
+/* --- Modal para Términos y Condiciones (results.html) --- */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 999; 
+    left: 0; 
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.5); 
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto; 
+    padding: 20px;
+    border-radius: 10px;
+    width: 70%;
+    max-width: 600px;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover {
+    color: #000;
+}
+
+/* --- Marca de agua en la esquina inferior derecha --- */
+.watermark {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    color: #666;       /* Gris medio, ajusta si deseas más claro */
+    font-size: 12px;
+    max-width: 300px;  /* Para que no se expanda demasiado si es texto largo */
+    text-align: right; /* Alinea el texto a la derecha dentro del recuadro */
+}
+
+

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados - {{ project_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        function openModal(index) {
+            const modal = document.getElementById('modal-' + index);
+            modal.style.display = 'block';
+        }
+        function closeModal(index) {
+            const modal = document.getElementById('modal-' + index);
+            modal.style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Promociones encontradas</h1>
+        {% if promociones %}
+            <button id="floatBtn" onclick="scrollToBottom()">Ir al final</button>
+
+            {% for promo in promociones %}
+            <div class="promo-card-grid">
+                <!-- Fila 1: Banco (izq) solo logo, Rubro (centro), Descuento (der) -->
+                <div class="banco-left">
+                    <img 
+                        src="{{ url_for('static', filename='bank_logos/' + promo['Banco/Billetera'] + '.png') }}"
+                        alt="{{ promo['Banco/Billetera'] }}"
+                        onerror="this.onerror=null; this.src='{{ url_for('static', filename='bank_logos/default.png') }}';"
+                    >
+                </div>
+                <div class="rubro-top">{{ promo["Rubro"] }}</div>
+                <div class="descuento-right">{{ promo["Descuento"] }}</div>
+
+                <!-- Fila 2: Logo del establecimiento y nombre -->
+                <div class="logo-center">
+                    <img 
+                        src="{{ url_for('static', filename='logos/' + promo['Establecimiento'] + '.png') }}"
+                        alt="{{ promo['Establecimiento'] }}"
+                        data-fallback-url="{{ url_for('static', filename='logos/default.png') }}"
+                        onerror="this.onerror=null; this.src=this.dataset.fallbackUrl;"
+                    >
+                    <h2>{{ promo["Establecimiento"] }}</h2>
+                </div>
+
+                <!-- Fila 3: Días -->
+                <div class="dias-center">
+                    <strong>Días:</strong> {{ promo["Día de la promoción"] }}
+                </div>
+
+                <!-- Fila 4: Tope, "Se requiere" y Términos y condiciones -->
+                <div class="footer-left">
+                    <strong>Tope de reintegro:</strong> {{ promo["Tope de reintegro"] }}
+                </div>
+                <div class="footer-center">
+                    {% if promo["Se requiere"] and promo["Se requiere"].strip().lower() != "n/a" %}
+                        <strong>Se requiere {{ promo["Se requiere"] }}</strong>
+                    {% else %}
+                        <!-- Nada si es n/a -->
+                    {% endif %}
+                </div>
+                <div class="footer-right">
+                    <a href="#" data-modal-index="{{ loop.index }}" onclick="openModal(this.dataset.modalIndex)">
+                       Términos y condiciones
+                    </a>
+                </div>
+            </div>
+
+            <!-- Modal para condiciones -->
+            <div class="modal" id="modal-{{ loop.index }}">
+                <div class="modal-content">
+                    <span class="close" data-modal-index="{{ loop.index }}" onclick="closeModal(this.dataset.modalIndex)">&times;</span>
+                    {% if promo["Condiciones"] and promo["Condiciones"].strip().lower() != "n/a" %}
+                        <p>{{ promo["Condiciones"] }}</p>
+                    {% else %}
+                        <p></p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No se encontraron promociones con los filtros seleccionados.</p>
+        {% endif %}
+        <br>
+        <a href="{{ url_for('index') }}">Volver</a>
+    </div>
+</body>
+</html>
+
+
+
+
